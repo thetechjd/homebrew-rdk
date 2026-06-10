@@ -1,42 +1,26 @@
 class Rdk < Formula
   desc "Retrieval Development Kit — distributed knowledge infrastructure"
   homepage "https://rdk.network"
-  version "1.0.5"
+  url "https://registry.npmjs.org/@retrodeck/rdk/-/rdk-1.0.8.tgz"
+  sha256 "9c7db6072b719cae6ee0a7d7e3774d33c46ed8fde31120a402b3a379c42a75d2"
   license "MIT"
 
-  on_macos do
-    on_arm do
-      url "https://github.com/thetechjd/rdk/releases/download/v1.0.5/rdk-macos-arm64.tar.gz"
-      sha256 "bf54fd548a1f3b9be519e51760e4bdf59bbbe3bc6165ab43401583a5bc3969d0"
-    end
-    on_intel do
-      url "https://github.com/thetechjd/rdk/releases/download/v1.0.5/rdk-macos-x64.tar.gz"
-      sha256 ""
-    end
-  end
-
-  on_linux do
-    on_arm do
-      url "https://github.com/thetechjd/rdk/releases/download/v1.0.5/rdk-linux-arm64.tar.gz"
-      sha256 "0303e986e7b4545076165fc24ad50d1a915f4b8bcc830280e4123cc0643bffda"
-    end
-    on_intel do
-      url "https://github.com/thetechjd/rdk/releases/download/v1.0.5/rdk-linux-x64.tar.gz"
-      sha256 "9795530f7ba0b62bc965bac01e19595acb795c9eb74d85c71b0670483cefc726"
-    end
-  end
+  # Pin a stable Node that better-sqlite3 publishes prebuilt binaries for.
+  # Homebrew's default "node" tracks bleeding-edge releases whose ABI often
+  # has no matching prebuild, forcing a source build that fails in the sandbox.
+  depends_on "node@22"
 
   def install
-    os  = OS.mac? ? "macos" : "linux"
-    cpu = Hardware::CPU.arm? ? "arm64" : "x64"
-    libexec.install "rdk-#{os}-#{cpu}" => "rdk-bin"
-    libexec.install "better_sqlite3.node"
-    (bin/"rdk").write <<~SH
-      #!/bin/bash
-      export BETTER_SQLITE3_NATIVE_BINDING="#{libexec}/better_sqlite3.node"
-      exec "#{libexec}/rdk-bin" "$@"
-    SH
-    chmod 0755, bin/"rdk"
+    node22 = Formula["node@22"]
+    ENV.prepend_path "PATH", node22.opt_bin
+
+    # Install by name from the registry (NOT the local dir — npm symlinks local
+    # dirs and skips their deps). This installs the full dependency tree and runs
+    # prebuild-install, downloading the better-sqlite3 binary for node@22's ABI.
+    system node22.opt_bin/"npm", "install", "--global", "--prefix=#{libexec}", "@retrodeck/rdk@#{version}"
+
+    # Wrap so `rdk` always runs under node@22 — same ABI the binary was fetched for.
+    (bin/"rdk").write_env_script libexec/"bin/rdk", PATH: "#{node22.opt_bin}:$PATH"
   end
 
   test do
