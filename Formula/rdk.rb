@@ -1,28 +1,28 @@
 class Rdk < Formula
   desc "Retrieval Development Kit — distributed knowledge infrastructure"
   homepage "https://rdk.network"
-  version "1.0.4"
+  version "1.0.5"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://github.com/thetechjd/rdk/releases/download/v1.0.4/rdk-macos-arm64.tar.gz"
-      sha256 "a67feccc96d50f73c19284f1a74a2d227668bad8a9fbf7cb8a7b5b1ee9e09a7d"
+      url "https://github.com/thetechjd/rdk/releases/download/v1.0.5/rdk-macos-arm64.tar.gz"
+      sha256 "bf54fd548a1f3b9be519e51760e4bdf59bbbe3bc6165ab43401583a5bc3969d0"
     end
     on_intel do
-      url "https://github.com/thetechjd/rdk/releases/download/v1.0.4/rdk-macos-x64.tar.gz"
+      url "https://github.com/thetechjd/rdk/releases/download/v1.0.5/rdk-macos-x64.tar.gz"
       sha256 ""
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/thetechjd/rdk/releases/download/v1.0.4/rdk-linux-arm64.tar.gz"
-      sha256 "4c8806007c8f5b663e3d6c4deaed390820a81c81b164b5687cec352f320285b7"
+      url "https://github.com/thetechjd/rdk/releases/download/v1.0.5/rdk-linux-arm64.tar.gz"
+      sha256 "0303e986e7b4545076165fc24ad50d1a915f4b8bcc830280e4123cc0643bffda"
     end
     on_intel do
-      url "https://github.com/thetechjd/rdk/releases/download/v1.0.4/rdk-linux-x64.tar.gz"
-      sha256 "a68112a1f6a3094454be9d94a65665cdb24c5b669cb958f3097b957379c4ede6"
+      url "https://github.com/thetechjd/rdk/releases/download/v1.0.5/rdk-linux-x64.tar.gz"
+      sha256 "9795530f7ba0b62bc965bac01e19595acb795c9eb74d85c71b0670483cefc726"
     end
   end
 
