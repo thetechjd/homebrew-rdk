@@ -1,8 +1,8 @@
 class Rdk < Formula
   desc "Retrieval Development Kit — distributed knowledge infrastructure"
   homepage "https://rdk.network"
-  url "https://registry.npmjs.org/@retrodeck/rdk/-/rdk-1.1.19.tgz"
-  sha256 "68b5e538ab85c5b0df02bd656180db3f0b0c923128b6e2d3b7818fd3ef591d60"
+  url "https://registry.npmjs.org/@retrodeck/rdk/-/rdk-1.1.20.tgz"
+  sha256 "ef600eadd575499cdc73b835f2ee7cd6a651601e257f55293df8b4e9e4696a09"
   license "MIT"
 
   # Pin a stable Node that better-sqlite3 publishes prebuilt binaries for.
